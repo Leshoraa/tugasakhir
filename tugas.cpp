@@ -3,8 +3,23 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <sstream>
 #include <string>
+
+#ifdef _WIN32
+#include <windows.h>
+void sleep_seconds(int seconds) { Sleep(seconds * 1000); }
+#else
 #include <unistd.h>
+void sleep_seconds(int seconds) { sleep(seconds); }
+#endif
+
+// Helper untuk to_string jika compiler tidak support C++11
+template <typename T> std::string to_string_custom(const T &value) {
+  std::stringstream ss;
+  ss << value;
+  return ss.str();
+}
 
 using namespace std;
 
@@ -23,7 +38,7 @@ int main() {
     cout << "Pilih Level:\n1. Easy\n2. Medium\n3. Hard\n";
     cin >> level;
     cout << "exp " << level << endl;
-    sleep(1);
+    sleep_seconds(1);
 #ifdef _WIN32
     system("cls");
 #else
@@ -121,7 +136,7 @@ int main() {
           cout << endl;
         }
 
-        sleep(5);
+        sleep_seconds(5);
 #ifdef _WIN32
         system("cls");
 #else
@@ -134,7 +149,7 @@ int main() {
         if (kategori == 1) {
           string expected = "";
           for (int i = 0; i < jumlahItem; i++) {
-            expected += to_string(numbers[i]);
+            expected += to_string_custom(numbers[i]);
           }
 
           string input;

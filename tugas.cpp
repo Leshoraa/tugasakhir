@@ -24,7 +24,11 @@ int main() {
     cin >> level;
     cout << "exp " << level << endl;
     sleep(1);
+#ifdef _WIN32
+    system("cls");
+#else
     system("clear");
+#endif
 
     bool selectingCategory = true;
     while (selectingCategory) {
@@ -32,7 +36,11 @@ int main() {
       cin >> kategori;
       cout << "exp " << kategori << endl;
       sleep(1);
+#ifdef _WIN32
+      system("cls");
+#else
       system("clear");
+#endif
 
       bool playing = true;
       while (playing) {
@@ -114,7 +122,11 @@ int main() {
         }
 
         sleep(5);
+#ifdef _WIN32
+        system("cls");
+#else
         system("clear");
+#endif
 
         cout << "Masukkan input sesuai urutan sebelumnya:" << endl;
         bool benar = true;
@@ -226,7 +238,11 @@ int main() {
         }
 
         if (playing) {
+#ifdef _WIN32
+          system("cls");
+#else
           system("clear");
+#endif
         }
       }
       if (!running)

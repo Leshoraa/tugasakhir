@@ -6,6 +6,7 @@
 #include <sstream>
 #include <string>
 
+// Syntax perbedaan perintah sistem antara Windows dan Linux
 #ifdef _WIN32
 #include <windows.h>
 void sleep_seconds(int seconds) { Sleep(seconds * 1000); }
@@ -31,10 +32,12 @@ int main() {
   int score = 0;
   bool running = true;
 
+  // Input nama pemain
   cout << "Masukkan Nama: ";
   cin >> nama;
 
   while (running) {
+    // --- Menu Pemilihan Level ---
     cout << "Pilih Level:\n1. Easy\n2. Medium\n3. Hard\n";
     cin >> level;
     cout << "exp " << level << endl;
@@ -47,6 +50,7 @@ int main() {
 
     bool selectingCategory = true;
     while (selectingCategory) {
+      // --- Menu Pemilihan Kategori ---
       cout << "Pilih Kategori:\n1. Bilangan\n2. Buah\n3. Hewan\n";
       cin >> kategori;
       cout << "exp " << kategori << endl;
@@ -63,6 +67,7 @@ int main() {
         int numbers[50];
         string words[50];
 
+        // Array kategori Buah dan Hewan
         string buahBank[] = {"Apel",   "Jeruk",    "Mangga",   "Pisang",
                              "Anggur", "Nanas",    "Semangka", "Melon",
                              "Durian", "Rambutan", "Salak",    "Pepaya",
@@ -72,6 +77,7 @@ int main() {
                               "Singa",  "Macan",   "Ular",  "Burung",
                               "Ikan",   "Kelinci", "Monyet"};
 
+        // Menentukan jumlah item berdasarkan level kesulitan
         if (level == 1)
           jumlahItem = 6;
         else if (level == 2)
@@ -82,6 +88,7 @@ int main() {
         cout << "Level: " << level << " | Score: " << score << endl;
         cout << "Hafalkan urutan berikut!" << endl << endl;
 
+        // Generate item acak (angka atau kata) sesuai kategori
         for (int i = 0; i < jumlahItem; i++) {
           if (kategori == 1) {
             if (level == 1)
@@ -96,7 +103,8 @@ int main() {
             words[i] = hewanBank[rand() % 15];
           }
         }
-
+\
+        // Level 1: Tampil vertikal satu per satu
         if (level == 1) {
           for (int i = 0; i < jumlahItem; i++) {
             if (kategori == 1)
@@ -104,6 +112,7 @@ int main() {
             else
               cout << words[i] << endl;
           }
+          // Level 2: Tampil grid (3 kolom)
         } else if (level == 2) {
           int cols = 3;
           for (int i = 0; i < jumlahItem; i++) {
@@ -115,6 +124,7 @@ int main() {
             if ((i + 1) % cols == 0)
               cout << endl;
           }
+          // Level 3: Tampil pola segitiga terbalik
         } else if (level == 3) {
           int currentLine = 0;
           int itemsInLine = 4;
@@ -143,6 +153,7 @@ int main() {
         system("clear");
 #endif
 
+        // --- Logika Input dan Validasi ---
         cout << "Masukkan input sesuai urutan sebelumnya:" << endl;
         bool benar = true;
 
@@ -180,10 +191,12 @@ int main() {
           }
         }
 
+        // Cek jawaban dan update skor
         if (benar) {
           score += 10;
           cout << "Benar! Point anda: " << score << endl;
 
+          // Menu navigasi setelah menyelesaikan level
           cout << "Menu:\n";
           if (level < 3)
             cout << "1. Next Level\n";

@@ -1,3 +1,4 @@
+#include <cctype>  // Untuk tolower dan spasi
 #include <cstdlib> // Untuk rand() dan srand()
 #include <iostream>
 #include <unistd.h> // Untuk fungsi sleep
@@ -6,12 +7,12 @@ using namespace std;
 
 // Fungsi membersihkan layar
 void clearScreen() {
-  #ifdef _WIN32
-        system("cls");
-    #else
-        system("clear");
-    #endif 
-  }
+#ifdef _WIN32
+  system("cls");
+#else
+  system("clear");
+#endif
+}
 
 // Fungsi jeda waktu
 void sleepSeconds(int seconds) { sleep(seconds); }
@@ -117,7 +118,7 @@ int main() {
     clearScreen();
 
     // Input Jawaban
-    cout << "Masukkan kembali urutannya (gabungkan tanpa spasi):\n";
+    cout << "Masukkan kembali urutannya: ";
 
     string kunciJawaban = "";
     string jawabanUser;
@@ -133,8 +134,8 @@ int main() {
       }
     }
 
-    cin >> ws; // Hapus whitespace
-    cin >> jawabanUser;
+    cin >> ws;                 // Bersihkan buffer
+    getline(cin, jawabanUser); // Ambil input satu baris (termasuk spasi)
 
     // Cek Jawaban (Case Insensitive Manual)
     bool benar = false;
@@ -147,7 +148,9 @@ int main() {
       kunciKecil += tolower(kunciJawaban[i]);
     }
     for (int i = 0; i < jawabanUser.length(); i++) {
-      userKecil += tolower(jawabanUser[i]);
+      if (!isspace(jawabanUser[i])) { // Abaikan spasi
+        userKecil += tolower(jawabanUser[i]);
+      }
     }
 
     if (kunciKecil == userKecil) {

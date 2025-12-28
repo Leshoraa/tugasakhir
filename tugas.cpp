@@ -5,7 +5,13 @@
 using namespace std;
 
 // Fungsi membersihkan layar
-void clearScreen() { system("clear"); }
+void clearScreen() {
+  #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif 
+  }
 
 // Fungsi jeda waktu
 void sleepSeconds(int seconds) { sleep(seconds); }
